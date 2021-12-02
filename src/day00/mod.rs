@@ -19,7 +19,7 @@ pub fn solve_part1(input: &[InputType]) -> u32 {
 
 #[aoc(day01, part2)]
 pub fn solve_part2(input: &[InputType]) -> u32 {
-    todo!("Solve part 1");
+    todo!("Solve part 2");
 
     panic!("No solution found");
 }

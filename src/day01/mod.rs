@@ -6,7 +6,7 @@ pub fn input_generator(input: &str) -> Vec<InputType> {
         .map(|l| {
             l.parse()
         })
-        .collect::<Result<Vec<u32>, std::num::ParseIntError>>()
+        .collect::<Result<Vec<InputType>, std::num::ParseIntError>>()
         .unwrap()
 }
 
