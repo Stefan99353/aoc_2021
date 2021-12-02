@@ -46,13 +46,13 @@ pub fn solve_part2(input: &[InputType]) -> i32 {
             InputType::Forward(v) => {
                 h_pos += v;
                 depth += aim * v;
-            },
+            }
             InputType::Down(v) => {
                 aim += v;
-            },
+            }
             InputType::Up(v) => {
                 aim -= v;
-            },
+            }
         }
     }
 
