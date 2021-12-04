@@ -90,11 +90,11 @@ fn most_common_bit(input: &[InputType], index: usize) -> Option<u8> {
         }
     }
 
-    if zero_count > one_count {
-        Some(0)
-    } else if one_count > zero_count {
-        Some(1)
-    } else { None }
+    match zero_count.cmp(&one_count) {
+        std::cmp::Ordering::Less => Some(1),
+        std::cmp::Ordering::Equal => None,
+        std::cmp::Ordering::Greater => Some(0),
+    }
 }
 
 #[cfg(test)]
