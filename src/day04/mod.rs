@@ -18,17 +18,13 @@ pub fn input_generator(input: &str) -> BingoGame {
         .collect::<Result<Vec<u32>, ParseIntError>>()
         .unwrap();
 
-
     // Parse boards
     let boards = sections
         .iter()
         .map(|b| parse_board(b))
         .collect::<Vec<BingoBoard>>();
 
-    BingoGame {
-        commands,
-        boards,
-    }
+    BingoGame { commands, boards }
 }
 
 pub fn parse_board(board_input: &str) -> BingoBoard {
@@ -116,12 +112,11 @@ impl BingoBoard {
     pub fn check_value(&mut self, value: u32) {
         let matrix = &mut self.0;
 
-        matrix.iter_mut()
-            .for_each(|e| {
-                if e.value == value {
-                    e.checked = true;
-                }
-            });
+        matrix.iter_mut().for_each(|e| {
+            if e.value == value {
+                e.checked = true;
+            }
+        });
     }
 
     pub fn has_won(&self) -> bool {
@@ -147,10 +142,7 @@ impl BingoBoard {
     pub fn get_score(&self) -> u32 {
         let matrix = &self.0;
 
-        matrix.iter()
-            .filter(|f| !f.checked)
-            .map(|f| f.value)
-            .sum()
+        matrix.iter().filter(|f| !f.checked).map(|f| f.value).sum()
     }
 }
 

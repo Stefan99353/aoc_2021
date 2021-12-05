@@ -2,10 +2,10 @@ type InputType = Vec<u8>;
 
 #[aoc_generator(day03)]
 pub fn input_generator(input: &str) -> Vec<InputType> {
-    input.lines()
+    input
+        .lines()
         .map(|l| {
-            l
-                .chars()
+            l.chars()
                 .map(|c| c.to_string().parse())
                 .collect::<Result<Vec<u8>, std::num::ParseIntError>>()
         })
@@ -69,8 +69,16 @@ pub fn solve_part2(input: &[InputType]) -> u32 {
         }
     }
 
-    let ogr: String = ogr_candidates[0].iter().map(|x| x.to_string()).collect::<Vec<String>>().join("");
-    let csr: String = csr_candidates[0].iter().map(|x| x.to_string()).collect::<Vec<String>>().join("");
+    let ogr: String = ogr_candidates[0]
+        .iter()
+        .map(|x| x.to_string())
+        .collect::<Vec<String>>()
+        .join("");
+    let csr: String = csr_candidates[0]
+        .iter()
+        .map(|x| x.to_string())
+        .collect::<Vec<String>>()
+        .join("");
 
     let ogr = u32::from_str_radix(&ogr, 2).unwrap();
     let csr = u32::from_str_radix(&csr, 2).unwrap();

@@ -2,7 +2,8 @@ type InputType = Command;
 
 #[aoc_generator(day02)]
 pub fn input_generator(input: &str) -> Vec<InputType> {
-    input.lines()
+    input
+        .lines()
         .map(|l| {
             let line: Vec<String> = l.split(' ').map(|c| c.to_string()).collect();
             let cmd = line.get(0).unwrap();
