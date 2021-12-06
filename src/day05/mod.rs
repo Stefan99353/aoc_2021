@@ -139,7 +139,7 @@ impl FromStr for LineSegment {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let line = s
             .split(" -> ")
-            .map(|x| x.split(",").map(|y| y.to_string()).collect::<Vec<String>>())
+            .map(|x| x.split(',').map(|y| y.to_string()).collect::<Vec<String>>())
             .flatten()
             .map(|x| x.parse().unwrap())
             .collect::<Vec<i32>>();
