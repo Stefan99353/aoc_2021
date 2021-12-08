@@ -12,8 +12,8 @@ pub fn input_generator(input: &str) -> Vec<Crab> {
 
 #[aoc(day07, part1)]
 pub fn solve_part1(input: &[Crab]) -> u32 {
-    let min = input.iter().map(|c|c.pos).min().unwrap();
-    let max = input.iter().map(|c|c.pos).max().unwrap();
+    let min = input.iter().map(|c| c.pos).min().unwrap();
+    let max = input.iter().map(|c| c.pos).max().unwrap();
 
     (min..=max)
         .into_iter()
@@ -24,8 +24,8 @@ pub fn solve_part1(input: &[Crab]) -> u32 {
 
 #[aoc(day07, part2)]
 pub fn solve_part2(input: &[Crab]) -> u32 {
-    let min = input.iter().map(|c|c.pos).min().unwrap();
-    let max = input.iter().map(|c|c.pos).max().unwrap();
+    let min = input.iter().map(|c| c.pos).min().unwrap();
+    let max = input.iter().map(|c| c.pos).max().unwrap();
 
     (min..=max)
         .into_iter()
@@ -41,9 +41,7 @@ pub struct Crab {
 
 impl Crab {
     pub fn new(pos: u32) -> Self {
-        Self {
-            pos
-        }
+        Self { pos }
     }
 
     pub fn fuel_cost(crabs: &[Crab], target: u32) -> u32 {
