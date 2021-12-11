@@ -162,7 +162,7 @@ impl CaveSystem {
 }
 
 #[cfg(test)]
-mod test_day08 {
+mod test_day09 {
     use super::{input_generator, solve_part1, solve_part2};
 
     const INPUT: &str = "2199943210
