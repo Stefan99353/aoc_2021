@@ -1,6 +1,6 @@
+use colored::*;
 use std::collections::HashMap;
 use std::fmt::{Display, Formatter};
-use colored::*;
 
 #[aoc_generator(day11)]
 pub fn input_generator(input: &str) -> OctopusMap {
@@ -21,9 +21,7 @@ pub fn input_generator(input: &str) -> OctopusMap {
         }
     }
 
-    OctopusMap {
-        map
-    }
+    OctopusMap { map }
 }
 
 #[aoc(day11, part1)]
@@ -54,9 +52,7 @@ pub fn solve_part2(input: &OctopusMap) -> u32 {
         step += 1;
 
         // Check if all flashed
-        all_flashed = input.map
-            .iter()
-            .all(|((_, _), o)| o.has_flashed);
+        all_flashed = input.map.iter().all(|((_, _), o)| o.has_flashed);
     }
 
     step
@@ -72,11 +68,10 @@ impl OctopusMap {
         let mut flashes = 0;
 
         // Increase energy by one and reset has_flashed
-        self.map.iter_mut()
-            .for_each(|((_, _), octopus)| {
-                octopus.energy += 1;
-                octopus.has_flashed = false;
-            });
+        self.map.iter_mut().for_each(|((_, _), octopus)| {
+            octopus.energy += 1;
+            octopus.has_flashed = false;
+        });
 
         let mut x: usize = 0;
         let mut y: usize = 0;
@@ -93,7 +88,9 @@ impl OctopusMap {
                         for ny in -1..=1 {
                             let (nx, ny) = (x as i64 + nx, y as i64 + ny);
                             // Check out of bounds
-                            if nx < 0 || ny < 0 || nx > 9 || ny > 9 { continue; }
+                            if nx < 0 || ny < 0 || nx > 9 || ny > 9 {
+                                continue;
+                            }
 
                             let neighbor = self.map.get_mut(&(nx as usize, ny as usize)).unwrap();
                             neighbor.energy += 1;
@@ -113,12 +110,11 @@ impl OctopusMap {
         }
 
         // Reset has_flashed and energy levels
-        self.map.iter_mut()
-            .for_each(|((_, _), octopus)| {
-                if octopus.energy > 9 {
-                    octopus.energy = 0;
-                }
-            });
+        self.map.iter_mut().for_each(|((_, _), octopus)| {
+            if octopus.energy > 9 {
+                octopus.energy = 0;
+            }
+        });
 
         flashes
     }
@@ -130,10 +126,12 @@ impl Display for OctopusMap {
 
         for y in 0..10 {
             for x in 0..10 {
-                let octo = self.map.get(&(x,y)).unwrap();
+                let octo = self.map.get(&(x, y)).unwrap();
 
                 match octo.has_flashed {
-                    true => res = format!("{}{}", res, octo.energy.to_string().as_str().color("green")),
+                    true => {
+                        res = format!("{}{}", res, octo.energy.to_string().as_str().color("green"))
+                    }
                     false => res = format!("{}{}", res, octo.energy),
                 }
             }
