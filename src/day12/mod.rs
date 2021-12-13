@@ -78,6 +78,7 @@ fn visit_cave(
 }
 
 #[allow(clippy::ptr_arg)]
+#[allow(clippy::if_same_then_else)]
 fn is_path_invalid(next_path: &String, path: &Vec<String>, small_twice: bool) -> bool {
     let mut count: HashMap<&String, u32> = HashMap::new();
 
