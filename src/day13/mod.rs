@@ -5,7 +5,8 @@ pub fn input_generator(input: &str) -> (Vec<Dot>, Vec<(char, u32)>) {
     let (dots_str, folds_str) = input.split_once("\n\n").unwrap();
 
     let mut dots = vec![];
-    dots_str.lines()
+    dots_str
+        .lines()
         .map(|l| {
             let (x, y) = l.split_once(',').unwrap();
             (x.parse::<u32>().unwrap(), y.parse::<u32>().unwrap())
@@ -15,7 +16,11 @@ pub fn input_generator(input: &str) -> (Vec<Dot>, Vec<(char, u32)>) {
     let mut folds = vec![];
     let all_folds = folds_str.split('\n').collect::<Vec<&str>>();
     for all_fold in all_folds {
-        let (axis, val) = all_fold.strip_prefix("fold along ").unwrap().split_once('=').unwrap();
+        let (axis, val) = all_fold
+            .strip_prefix("fold along ")
+            .unwrap()
+            .split_once('=')
+            .unwrap();
         let axis = match axis {
             "x" => 'x',
             "y" => 'y',
@@ -64,16 +69,20 @@ impl Dot {
         match axis {
             'x' => {
                 // Only fold if point is right of axis (x > value)
-                if self.0 <= value {return self.clone();}
+                if self.0 <= value {
+                    return self.clone();
+                }
                 let new_x = value - (self.0 - value);
                 Self(new_x, self.1)
-            },
+            }
             'y' => {
                 // Only fold if point is below of axis (y > value)
-                if self.1 <= value {return self.clone();}
+                if self.1 <= value {
+                    return self.clone();
+                }
                 let new_y = value - (self.1 - value);
                 Self(self.0, new_y)
-            },
+            }
             _ => panic!("Invalid axis"),
         }
     }
@@ -83,8 +92,12 @@ impl Dot {
         let mut largest_y = 0;
 
         for dot in dots {
-            if dot.0 > largest_x {largest_x = dot.0}
-            if dot.1 > largest_y {largest_y = dot.1}
+            if dot.0 > largest_x {
+                largest_x = dot.0
+            }
+            if dot.1 > largest_y {
+                largest_y = dot.1
+            }
         }
 
         let mut result = String::from("\n");

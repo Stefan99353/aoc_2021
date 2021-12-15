@@ -1,13 +1,16 @@
+use itertools::{Itertools, MinMaxResult};
 use std::collections::HashMap;
 use std::str::FromStr;
-use itertools::{Itertools, MinMaxResult};
 
 #[aoc_generator(day14)]
 pub fn input_generator(input: &str) -> (Polymer, PairInsertions) {
-    input.split_once("\n\n")
+    input
+        .split_once("\n\n")
         .map(|(poly, pairs)| {
             (
-                Polymer::from_str(poly).unwrap(), PairInsertions::from_str(pairs).unwrap())
+                Polymer::from_str(poly).unwrap(),
+                PairInsertions::from_str(pairs).unwrap(),
+            )
         })
         .unwrap()
 }
@@ -57,15 +60,11 @@ impl FromStr for Polymer {
             *acc.entry(*c).or_insert(0) += 1;
             acc
         });
-        let pairs = chars
-            .windows(2)
-            .fold(HashMap::new(), |mut acc, win| {
-                let key: [char; 2] = (*win)
-                    .try_into()
-                    .unwrap();
-                *acc.entry(key).or_insert(0) += 1;
-                acc
-            });
+        let pairs = chars.windows(2).fold(HashMap::new(), |mut acc, win| {
+            let key: [char; 2] = (*win).try_into().unwrap();
+            *acc.entry(key).or_insert(0) += 1;
+            acc
+        });
         Ok(Self { pairs, counts })
     }
 }
@@ -74,9 +73,12 @@ pub struct PairInsertions(HashMap<Pair, char>);
 
 impl PairInsertions {
     pub fn apply(&self, polymer: Polymer) -> Polymer {
-        polymer.pairs
-            .into_iter()
-            .fold(Polymer { pairs: HashMap::default(), counts: polymer.counts }, |mut poly, (k, v)| {
+        polymer.pairs.into_iter().fold(
+            Polymer {
+                pairs: HashMap::default(),
+                counts: polymer.counts,
+            },
+            |mut poly, (k, v)| {
                 if let Some(insertion) = self.0.get(&k) {
                     *poly.counts.entry(*insertion).or_insert(0) += v;
                     for pair in [[k[0], *insertion], [*insertion, k[1]]] {
@@ -84,7 +86,8 @@ impl PairInsertions {
                     }
                 }
                 poly
-            })
+            },
+        )
     }
 }
 
@@ -102,9 +105,7 @@ impl FromStr for PairInsertions {
                             right.chars().collect::<Vec<char>>(),
                         )
                     })
-                    .map(|(l, r)| {
-                        l.try_into().ok().zip(r.first().copied()).unwrap()
-                    })
+                    .map(|(l, r)| l.try_into().ok().zip(r.first().copied()).unwrap())
                     .unwrap()
             })
             .collect();
@@ -112,7 +113,6 @@ impl FromStr for PairInsertions {
         Ok(Self(map))
     }
 }
-
 
 #[cfg(test)]
 mod test_day14 {
